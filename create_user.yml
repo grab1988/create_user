@@ -1,0 +1,25 @@
+---
+- name: Create multiple users on Ubuntu nodes
+  hosts: all
+  become: true
+
+  vars:
+    users:
+      - username: rahul.datta
+        password: "Pass@123"
+        groups: sudo
+      - username: seema.datta
+        password: "Pass@123"
+        groups: sudo
+
+  tasks:
+    - name: Ensure multiple users are present
+      ansible.builtin.user:
+        name: "{{ item.username }}"
+        password: "{{ item.password }}"
+        shell: /bin/bash
+        groups: "{{ item.groups }}"
+        append: yes
+        create_home: yes
+        state: present
+      loop: "{{ users }}"
