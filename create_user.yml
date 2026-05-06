@@ -1,7 +1,7 @@
 ---
 - name: Create linux users
   hosts: all
-  become: yes
+  become: no
   vars:
     users:
       - rahul.datta
