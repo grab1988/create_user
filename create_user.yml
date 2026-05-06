@@ -1,14 +1,17 @@
 ---
-- name: Create linux users
+- name: Create Linux users using AWX
   hosts: all
-  become: no
+  become: yes
+  become_method: sudo
+  become_user: root
+
   vars:
     users:
       - rahul.datta
       - seema.datta
 
   tasks:
-    - name: Create users
+    - name: Ensure users are present
       user:
         name: "{{ item }}"
         state: present
